@@ -3,7 +3,6 @@
 # ~~~~
 
 GET     /                           controllers.MainController.index()
-GET     /message                    controllers.MessageController.getMessage()
 GET     /goog/:lat/:lon             controllers.PlacesController.getPlacesLatLon(lat: String,lon: String)
 GET     /goog/:search				controllers.PlacesController.getPlacesString(search: String)
 GET     /url/:lat/:lon             	controllers.PlacesController.getURL(lat: String,lon: String)
