@@ -1,4 +1,4 @@
-package controllers; //move to models?
+package models; //move to models?
 
 import com.fasterxml.jackson.databind.JsonNode;
 
