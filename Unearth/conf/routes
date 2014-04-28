@@ -7,7 +7,7 @@ GET     /goog/:lat/:lon             controllers.PlacesController.getPlacesLatLon
 GET     /goog/:search				controllers.PlacesController.getPlacesString(search: String)
 GET     /url/:lat/:lon             	controllers.PlacesController.getURL(lat: String,lon: String)
 GET     /map/:lat/:lon				controllers.SingleMapController.getMap(lat: String,lon: String)
-GET     /assets/javascripts/routes  controllers.MessageController.javascriptRoutes()
+GET     /ip							controllers.PlacesController.returnIP()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

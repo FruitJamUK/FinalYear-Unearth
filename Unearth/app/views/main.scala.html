@@ -4,18 +4,28 @@
 <html>
 <head>
     <title>@title</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    
     <link rel='shortcut icon' type='image/png' href='@routes.Assets.at("images/favicon.png")'>
-    <link rel='stylesheet' href='@routes.WebJarAssets.at(WebJarAssets.locate("bootstrap.min.css"))'>
+    <link rel='stylesheet' href='@routes.Assets.at("stylesheets/bootstrap.min.css")'>
     <link rel='stylesheet' href='@routes.Assets.at("stylesheets/index.css")'>
-    <script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("jquery.min.js"))'></script>
-    <script type="text/javascript" src="@routes.MessageController.javascriptRoutes"></script>
+    <script type='text/javascript' src='@routes.Assets.at("javascripts/jquery.min.js")'></script>
+    
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
     
 </head>
 <body>
     <div class="navbar navbar-fixed-top">
         <div class="navbar-inner">
             <div class="container-fluid">
-                <a id="titleLink" class="brand" href="/">@title</a>
+                <a id="titleLink" class="brand" href="/">Unearth</a>
+                <a>search</a>
             </div>
         </div>
     </div>

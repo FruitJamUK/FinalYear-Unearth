@@ -1,10 +1,17 @@
 package controllers;
 
 //import play.mvc.Action;
+import java.net.UnknownHostException;
+
+import models.Restaurant;
 import play.mvc.Controller;
 import play.mvc.Result;
+
+
 //import play.api.libs.json.Json;
 import com.fasterxml.jackson.databind.JsonNode;
+
+
 //import play.api.Routes;
 import play.libs.WS;
 import play.libs.F.Promise;
@@ -13,7 +20,7 @@ import play.libs.F.Promise;
 
 public class PlacesController extends Controller {
 	
-	private static final String key="AIzaSyBAMBeVhvKG8NoXsuzEnLvW2x1KcU8fxTw";
+	private static final String key="AIzaSyCx8qY5PsAax6gpZiXADiHBo68As6YDaPQ";
 
   public static Result getPlacesLatLon(String lat, String lon) {
     
@@ -101,6 +108,18 @@ WS.WSRequestHolder RequestHolder = new WS.WSRequestHolder(url); //necessary? one
 		  arr[i].readJson(json.get(i));
 	  }
 	  return arr;
+  }
+  
+  public static String getIP() throws UnknownHostException{
+	  String url="http://instance-data/latest/meta-data/public-hostname";
+	  try{
+	  Promise<WS.Response> res = WS.url(url).get();
+	  return res.get().toString();
+	  }
+	  catch (Exception e){return "Error: IP not found";}
+  }
+  public static Result returnIP() throws UnknownHostException{
+	  return ok(getIP());
   }
   
     
