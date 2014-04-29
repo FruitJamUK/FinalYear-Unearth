@@ -1,15 +1,22 @@
 package controllers;
 
 //import play.mvc.Action;
+import java.io.IOException;
 import java.net.UnknownHostException;
 
 import models.Restaurant;
+import models.TestJson;
 import play.mvc.Controller;
 import play.mvc.Result;
 
 
+
+
+import com.fasterxml.jackson.core.JsonProcessingException;
 //import play.api.libs.json.Json;
 import com.fasterxml.jackson.databind.JsonNode;
+
+
 
 
 //import play.api.Routes;
@@ -84,6 +91,20 @@ WS.WSRequestHolder RequestHolder = new WS.WSRequestHolder(url); //necessary? one
   
   public static Result getURL(String lat, String lon) {
        return ok(generateURL(lat,lon));
+  }
+  
+  public static Result getRestaurants(){
+	  
+	  return null;
+  }
+  
+public static Result getRestaurantsTest(){
+	JsonNode json=null;
+	try {json = TestJson.pullTestJson();}
+	catch (JsonProcessingException e) {e.printStackTrace();}
+	catch (IOException e) {e.printStackTrace();}
+	Restaurant[] r=parseJson(json);
+	  return ok(r.equals(null)?r.toString():json.toString());
   }
   
   public static JsonNode getJson(String url){
