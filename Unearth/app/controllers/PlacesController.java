@@ -104,7 +104,16 @@ public static Result getRestaurantsTest(){
 	catch (JsonProcessingException e) {e.printStackTrace();}
 	catch (IOException e) {e.printStackTrace();}
 	Restaurant[] r=parseJson(json);
-	  return ok(r.equals(null)?r.toString():json.toString());
+	//Restaurant rest=new Restaurant();
+	//rest.readJson(json.get("results").get(0));
+	  return ok(r[0]!=null?(r.length+r[0].testString()+r[r.length-1].testString()):json.toString());
+	//return ok(json.get("results").get(0)/*.get("rating")*/.toString());
+	//return ok(Long.toString(json.get("results").get(0).get("geometry").get("location").get("lat").longValue()));
+	//return ok(json.get("results").get(0).get("geometry").get("location").get("lat").asText());
+	//return ok(rest.testString());
+	//return ok(String.valueOf(json.get("results").size()));
+	//return ok(Boolean.toString(json.get("status").textValue().equals("OK")));
+	//return ok(String.valueOf(r.length));
   }
   
   public static JsonNode getJson(String url){
@@ -115,18 +124,23 @@ public static Result getRestaurantsTest(){
   
   public static Restaurant[] parseJson(JsonNode json){
 	  //if error, return null, indicates error/no results
-	  if(!json.get("status").textValue().equals("OK")){
-		  System.out.println(json.get("status").textValue()+":"+json.get("error_message").textValue());
-		  return null;
-	  }
-	  //else split into arrays
+	  //if(!json.get("status").asText().equals("OK")){
+	//	  System.out.println(json.get("status").asText()+":"+json.get("error_message").asText());
+	//	  return null;
+	//  }
+	  //else split into array
 	  json=json.get("results");
 	  int size=json.size();
 	  Restaurant[] arr= new Restaurant[size];
 	  //for all restaurants, new restaurant
 	  for(int i=0;i<size;i++)
 	  {
-		  arr[i].readJson(json.get(i));
+		  arr[i] = new Restaurant();
+		  arr[i].readJson(json.get(i)); //PROBLEM HERE
+		  
+		  //Restaurant r = new Restaurant();
+		  //r.readJson(json.get(i));
+		  //arr[i]=r;
 	  }
 	  return arr;
   }
