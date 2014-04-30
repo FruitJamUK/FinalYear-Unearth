@@ -1,34 +1,46 @@
+var latitude = 0;
+var longitude = 0;
+var q = "";
+
 function get_location() {
 console.log("get_location entered");
 if (navigator.geolocation){ //offer local search
-  navigator.geolocation.getCurrentPosition(show_map);}
-else {console.log("no geolocation");} //maybe display no geolocation?
+  navigator.geolocation.getCurrentPosition(show_map);
+  //grey out button
+  $("#ltlnSubmit").removeClass("disabled");
+  }
+else if(!navigator.geolocation){console.log("no geolocation");}
 }
 
 function show_map(position) {
   console.log("show_map entered");
-  var latitude = position.coords.latitude;
-  var longitude = position.coords.longitude;
+  latitude = position.coords.latitude;
+  console.log("latitude="+latitude);
+  longitude = position.coords.longitude;
+  console.log("longitude="+longitude);
 }
 
 function no_info() {
 	console.log("no_info entered");
-	//grey out button
-	
-	//var latitude = false;
-	//var longitude = false;
-	
-	//do nothing? no redirect at least
 }
 
 function localSearch() {
-  //redirect to JSON route (temporary)
-  <!--
-	window.location.href = "/goog/"+latitude+"/"+longitude;
-	//--> //move this out of function? move to button functionality (ungrey button)
+	window.location = "/goog/"+latitude+"/"+longitude;
 }	
 
+function querySearch() {
+	q = $("#query:input").val();
+	window.location = "/goog/"+q;
+}
+
 //single function should handle other function calls
-console.log("before get_location");
-//get_location(); //stick in button
-console.log("after get_location");
+//console.log("before get_location");
+get_location(); //stick in button
+//console.log("after get_location");
+
+$(document).ready(function(){
+$("#query").bind("keypress",
+		function(e){ if(e.keyCode==13){querySearch();} });
+$("#querySubmit").click(querySearch);
+$("#ltlnSubmit").click(localSearch);
+});

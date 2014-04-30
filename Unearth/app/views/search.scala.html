@@ -1,0 +1,106 @@
+@(restaurants: Array[Restaurant])
+
+@main("Welcome to Play Framework") {
+	<style>
+      #map-canvas {
+        height: 100%;
+        width: 100%;
+        margin: 0px;
+        padding: 0px;
+      }
+    </style>
+    <!--<script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?AIzaSyC7-9jC8PxxeiMdaSi_HGMwWEWLvtQZ5as&sensor=false">
+    </script>-->
+    <script type="text/javascript">
+    var lat = 0;
+    var lon = 0;
+    
+      function initialize() {
+			var mapOptions = {
+			zoom: 18,
+			center: new google.maps.LatLng(lat, lon)
+			};
+
+			var map = new google.maps.Map(document.getElementById('map-canvas'),
+			mapOptions);
+			
+			var marker = new google.maps.Marker({
+			position: new google.maps.LatLng(lat, lon),
+			map: map,
+			draggable: false,
+			animation: google.maps.Animation.DROP,
+			title:"Hello World!"});
+		}
+
+		function loadScript() {
+			var script = document.createElement('script');
+			script.type = 'text/javascript';
+			script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&' +
+				'callback=initialize';
+				document.body.appendChild(script);
+			}
+			
+			function moveMap(t){
+						console.log("click entered");
+						var h=$(t).attr("href");
+						h= h+".mapspace";
+						console.log(h);
+						
+						var mapCanvas = $("#map-canvas").detach();
+						mapCanvas.appendTo(h);
+						//$(h).find(".mapspace").append(mapCanvas);
+						console.log("map has been moved to "+h);
+						
+						//lat=0; //need to add reading of lat and lon
+						//lon=0;
+						//initialise();
+						}
+
+$(document).ready(function(){
+		window.onload = loadScript;
+		
+		console.log("map loaded");
+		
+		$("a.placeTitle").click(function(){moveMap(this)});
+		
+		});
+    </script>
+    
+    
+    <div height="0px" width="0px">
+    <div id="map-canvas"/>
+    </div>
+    
+    <!--Dynamic-->
+	<!--if/else any restaurants-->
+	<div class="panel-group" id="accordion">
+	<!--Default Map-->
+	<!--For all items-->
+	@for(r <- restaurants) {
+	<!--Create additional nav-section-->
+	<div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a class="placeTitle" data-toggle="collapse" data-parent="#accordion" href="#@(r.getLat+r.getLon)">
+          @r.getName
+        </a>
+        <!--<div class="col-xs-1 col-xs-offset-11">@r.getRating</div>-->
+      </h4>
+    </div>
+    <div id="@(r.getLat+r.getLon)" class="panel-collapse collapse in">
+      <div class="panel-body">
+	  <div class="col-xs-7 mapspace">
+	  </div>
+	  <div class="col-xs-5">
+        @r.getName<br/>
+        @r.getAddress<br/>
+        @r.getRating out of 5<br/>
+	  </div>
+      </div>
+    </div>
+  </div>	
+	}
+  <!--end for-->
+
+}

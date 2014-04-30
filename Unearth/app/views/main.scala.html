@@ -11,6 +11,8 @@
     <link rel='stylesheet' href='@routes.Assets.at("stylesheets/bootstrap.min.css")'>
     <link rel='stylesheet' href='@routes.Assets.at("stylesheets/index.css")'>
     <script type='text/javascript' src='@routes.Assets.at("javascripts/jquery.min.js")'></script>
+    <script type='text/javascript' src='@routes.Assets.at("javascripts/bootstrap.min.js")'></script>
+    
     
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -22,11 +24,30 @@
 </head>
 <body>
     <div class="navbar navbar-fixed-top">
-        <div class="navbar-inner">
-            <div class="container-fluid">
-                <a id="titleLink" class="brand" href="/">Unearth</a>
-                <a>search</a>
-            </div>
+        <div class="container-fluid">
+            
+            	<div class="navbar-header">
+            	<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#collapse">
+        		<span class="sr-only">Toggle navigation</span>
+        		<span class="icon-bar"></span>
+        		<span class="icon-bar"></span>
+        		<span class="icon-bar"></span>
+      			</button>
+                <a id="titleLink" class="navbar-brand" href="/">Unearth</a>
+                </div>
+                
+                <div class="collapse navbar-collapse" id="collapse">
+      			<!--<ul class="nav navbar-nav">-->
+                <!--<form class="navbar-form navbar-left" role="search">
+        			<div class="form-group">-->
+          			<input type="text" id="query" class="form-control" placeholder="Search"/>
+        			<!--</div>-->
+        			<button type="submit" id="querySubmit" class="btn navbar-btn">Search</button>
+      			<!--</form>-->
+      			<button type="submit" id="ltlnSubmit" class="btn navbar-btn disabled">Local Search</button>
+      			<!--</ul>-->
+      			</div>
+            
         </div>
     </div>
     <div class="container">
