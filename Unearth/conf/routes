@@ -3,8 +3,13 @@
 # ~~~~
 
 GET     /                           controllers.MainController.index()
-GET     /goog/:lat/:lon             controllers.PlacesController.getPlacesLatLon(lat: String,lon: String)
-GET     /goog/:search				controllers.PlacesController.getPlacesString(search: String)
+GET     /results/:lat/:lon			controllers.PlacesController.getPlacesLatLon(lat: String,lon: String)
+GET     /results/:search			controllers.PlacesController.getPlacesString(search: String)
+GET     /results/test				controllers.PlacesController.getRestaurantsTest()
+
+#Debug Routes
+#GET     /goog/:lat/:lon             controllers.PlacesController.getPlacesLatLon(lat: String,lon: String)
+#GET     /goog/:search				controllers.PlacesController.getPlacesString(search: String)
 GET     /url/:lat/:lon             	controllers.PlacesController.getURL(lat: String,lon: String)
 GET     /map/:lat/:lon				controllers.SingleMapController.getMap(lat: String,lon: String)
 GET     /ip							controllers.PlacesController.returnIP()
