@@ -6,8 +6,6 @@ function get_location() {
 console.log("get_location entered");
 if (navigator.geolocation){ //offer local search
   navigator.geolocation.getCurrentPosition(show_map);
-  //grey out button
-  $("#ltlnSubmit").removeClass("disabled");
   }
 else if(!navigator.geolocation){console.log("no geolocation");}
 }
@@ -18,6 +16,9 @@ function show_map(position) {
   console.log("latitude="+latitude);
   longitude = position.coords.longitude;
   console.log("longitude="+longitude);
+  
+//ungrey button
+  $("#ltlnSubmit").removeClass("disabled");
 }
 
 function no_info() {
@@ -25,12 +26,16 @@ function no_info() {
 }
 
 function localSearch() {
-	window.location = "/goog/"+latitude+"/"+longitude;
+	//console.log(latitude+" "+longitude);
+	window.location = "/results/"
+					+latitude+"/"+longitude;
 }	
 
 function querySearch() {
 	q = $("#query:input").val();
-	window.location = "/goog/"+q;
+	//console.log(q);
+	window.location = "/results/"
+							+q;
 }
 
 //single function should handle other function calls
