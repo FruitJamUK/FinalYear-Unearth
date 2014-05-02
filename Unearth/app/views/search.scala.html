@@ -83,29 +83,27 @@
 			function createStaticMap(t){
 						//console.log($(t).class());
 						var h=$(t).attr("href");
-						var hMapspace= h+".mapspace";
 						console.log(h);
 						
-						//if hMapspace doesn't img as a child, create map
-						//if( ($(hMapspace).is(hMapspace+":empty")) == true)
-						//{
+						//if h.Mapspace doesn't have img as a child, create map
+						console.log($(h).find(".mapspace").children().length);
+						if($(h).find(".mapspace").children().length==0)
+						{
 						var latlng=h.replace("#","").replace(/m/g,"-").replace(/d/g,".").split("c");
 						lat=latlng[0];
 						lon=latlng[1];
 						console.log(lat+","+lon);
 						
-						//var url=buildUrl(lat,lon);
 						var mapCanvas = "<img src=\"" +buildUrl(lat,lon)+ "\" class=\"img-responsive\" width=100% />"; //new img tag
 						console.log(mapCanvas);
-						//mapCanvas.appendTo(hMapspace);
 						$(h).find(".mapspace").append(mapCanvas);
-						console.log("map has been moved to "+hMapspace);
-						//}
+						console.log("map has been moved to "+h+".mapspace");
+						}
 			}
 			
 			function buildUrl(a,b){
 					return ("http://maps.googleapis.com/maps/api/staticmap?center="+a+","+b+
-					"&zoom=18&size=300x300&markers=color:green|"+a+","+b+
+					"&zoom=18&size=300x300&markers=color:green|label:V|"+a+","+b+
 					/*"&key="+key+*/"&sensor=false");
 			}
 
