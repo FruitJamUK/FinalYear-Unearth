@@ -15,22 +15,33 @@
     <script type="text/javascript">
     var lat = 0;
     var lon = 0;
+    var loaded = false;
+    var mapArray = [];
+    var key = "AIzaSyC7-9jC8PxxeiMdaSi_HGMwWEWLvtQZ5";
     
       function initialize() {
+      		var ltln = new google.maps.LatLng(lat, lon);
+      
 			var mapOptions = {
 			zoom: 18,
-			center: new google.maps.LatLng(lat, lon)
+			center: ltln
 			};
 
 			var map = new google.maps.Map(document.getElementById('map-canvas'),
 			mapOptions);
 			
+			mapArray[0]=map;
+			
 			var marker = new google.maps.Marker({
-			position: new google.maps.LatLng(lat, lon),
+			position: ltln,
 			map: map,
 			draggable: false,
 			animation: google.maps.Animation.DROP,
 			title:"Hello World!"});
+			
+			mapArray[1]=marker;
+			
+			loaded=true;
 		}
 
 		function loadScript() {
@@ -42,33 +53,74 @@
 			}
 			
 			function moveMap(t){
-						console.log("click entered");
+					console.log("click entered");
+				if(!loaded){
+					console.log("not loaded");
+				} else {
+						console.log("loaded");
 						var h=$(t).attr("href");
-						h= h+".mapspace";
+						var hMapspace= h+".mapspace";
 						console.log(h);
 						
-						var mapCanvas = $("#map-canvas").detach();
-						mapCanvas.appendTo(h);
-						//$(h).find(".mapspace").append(mapCanvas);
-						console.log("map has been moved to "+h);
+						//var mapCanvas = $("#map-canvas").detach();
+						mapCanvas.appendTo(hMapspace);
+						//$(h).find(".mapspace").append($("#map-canvas"));
+						console.log("map has been moved to "+hMapspace);
 						
-						//lat=0; //need to add reading of lat and lon
-						//lon=0;
-						//initialise();
+						
+						var latlng=h.replace("#","").replace(/m/g,"-").replace(/d/g,".").split("c");
+						lat=latlng[0];
+						lon=latlng[1];
+						console.log(lat+","+lon);
+						loadScript;
+						
+						var newMapCenter= new google.maps.LatLng(lat, lon);
+						mapArray[0].setCenter(newMapCenter);
+						mapArray[1].setPosition(newMapCenter);
 						}
+					}
+					
+			function createStaticMap(t){
+						//console.log($(t).class());
+						var h=$(t).attr("href");
+						var hMapspace= h+".mapspace";
+						console.log(h);
+						
+						//if hMapspace doesn't img as a child, create map
+						//if( ($(hMapspace).is(hMapspace+":empty")) == true)
+						//{
+						var latlng=h.replace("#","").replace(/m/g,"-").replace(/d/g,".").split("c");
+						lat=latlng[0];
+						lon=latlng[1];
+						console.log(lat+","+lon);
+						
+						//var url=buildUrl(lat,lon);
+						var mapCanvas = "<img src=\"" +buildUrl(lat,lon)+ "\" class=\"img-responsive\" width=100% />"; //new img tag
+						console.log(mapCanvas);
+						//mapCanvas.appendTo(hMapspace);
+						$(h).find(".mapspace").append(mapCanvas);
+						console.log("map has been moved to "+hMapspace);
+						//}
+			}
+			
+			function buildUrl(a,b){
+					return ("http://maps.googleapis.com/maps/api/staticmap?center="+a+","+b+
+					"&zoom=18&size=300x300&markers=color:green|"+a+","+b+
+					/*"&key="+key+*/"&sensor=false");
+			}
 
 $(document).ready(function(){
-		window.onload = loadScript;
+		loaded=true; //window.onload = loadScript;
 		
-		console.log("map loaded");
+		//console.log("map loaded");
 		
-		$("a.placeTitle").click(function(){moveMap(this)});
+		$(".placeTitle").click(function(){createStaticMap(this)});
 		
 		});
     </script>
     
     
-    <div height="0px" width="0px">
+    <div id="map-holder" height="0px" width="0px">
     <div id="map-canvas"/>
     </div>
     
@@ -82,19 +134,20 @@ $(document).ready(function(){
 	<div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
-        <a class="placeTitle" data-toggle="collapse" data-parent="#accordion" href="#@(r.getLat+r.getLon)">
+        <a class="placeTitle" data-toggle="collapse" data-parent="#accordion" href="#@((r.getLat+"c"+r.getLon).replace("-","m").replace(".","d"))">
           @r.getName
         </a>
         <!--<div class="col-xs-1 col-xs-offset-11">@r.getRating</div>-->
       </h4>
     </div>
-    <div id="@(r.getLat+r.getLon)" class="panel-collapse collapse in">
+    <div id="@((r.getLat+"c"+r.getLon).replace("-","m").replace(".","d"))" class="panel-collapse collapse">
       <div class="panel-body">
 	  <div class="col-xs-7 mapspace">
 	  </div>
 	  <div class="col-xs-5">
         @r.getName<br/>
-        @r.getAddress<br/>
+        @for(a <- r.getAddress.split(",")){
+        	@(a)<br/>}
         @r.getRating out of 5<br/>
 	  </div>
       </div>
