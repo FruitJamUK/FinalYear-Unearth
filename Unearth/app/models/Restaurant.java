@@ -30,7 +30,7 @@ public class Restaurant {
 		lat=LatLon.get("lat").asText();
 		lon=LatLon.get("lng").asText();
 		name=json.get("name").asText();
-		rating=json.get("rating").asText();
+		//rating=json.get("rating").asText();
 	}
 	public String getAddress(){return formAdd;}
 	public String getLat(){return lat;}
