@@ -64,7 +64,7 @@ public static Result jsonToString(JsonNode json){
 	return ok(json.toString());
 }
   /**
-   * 
+   * Generates a Google Places JSON URL based on a search query
    * @param search Search query string given by the user
    * @return The Google URL generated from the given input
    */
@@ -78,7 +78,7 @@ public static Result jsonToString(JsonNode json){
 		  return url;
 	  }
   /**
-   * 
+   * Generates a Google Places JSON URL based on a Latitude and Longitude
    * @param lat Latitude of the user (provided by geolocation)
    * @param lon Longitude of the user (provided by geolocation)
    * @return The Google URL generated from the given input
@@ -162,26 +162,5 @@ public static Result getRestaurantsTest(){
 	  }
 	  return arr;
   }
-  /**
-   * 
-   * @return
-   * @throws UnknownHostException
-   */
-  public static String getIP() throws UnknownHostException{
-	  String url="http://instance-data/latest/meta-data/public-hostname";
-	  try{
-	  Promise<WS.Response> res = WS.url(url).get();
-	  return res.get().toString();
-	  }
-	  catch (Exception e){return "Error: IP not found";}
-  }
-  /**
-   * 
-   * @return
-   * @throws UnknownHostException
-   */
-  public static Result returnIP() throws UnknownHostException{
-	  return ok(getIP());
-  }
-    
+  
 }
