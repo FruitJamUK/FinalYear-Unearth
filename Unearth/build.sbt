@@ -16,6 +16,8 @@ libraryDependencies ++= Seq(
   "org.webjars" % "bootstrap" % "2.3.1"
   // Add your own project dependencies in the form:
   // "group" % "artifact" % "version"
+  //"org.webjars" %% "bootstrap" % "3.1.1",
+  //"org.webjars" %% "jquery" % "2.1.3"
 )
 
 play.Project.playScalaSettings
