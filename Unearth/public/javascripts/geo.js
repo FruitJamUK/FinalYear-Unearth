@@ -34,8 +34,9 @@ function localSearch() {
 function querySearch() {
 	q = $("#query:input").val();
 	//console.log(q);
+	if(q!==null&&q!==""){
 	window.location = "/results/"
-							+q;
+							+q;}
 }
 
 //single function should handle other function calls
