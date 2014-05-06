@@ -10,9 +10,9 @@ GET     /results/test				controllers.PlacesController.getRestaurantsTest()
 #Debug Routes
 #GET     /goog/:lat/:lon             controllers.PlacesController.getPlacesLatLon(lat: String,lon: String)
 #GET     /goog/:search				controllers.PlacesController.getPlacesString(search: String)
-GET     /url/:lat/:lon             	controllers.PlacesController.getURL(lat: String,lon: String)
+#GET     /url/:lat/:lon             	controllers.PlacesController.getURL(lat: String,lon: String)
 GET     /map/:lat/:lon				controllers.SingleMapController.getMap(lat: String,lon: String)
-GET     /ip							controllers.PlacesController.returnIP()
+#GET     /ip							controllers.PlacesController.returnIP()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
